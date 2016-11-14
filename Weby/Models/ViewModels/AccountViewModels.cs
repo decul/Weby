@@ -49,9 +49,8 @@ namespace Weby.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Display(Name = "Login / Email")]
+        public string Login { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -68,9 +67,13 @@ namespace Weby.Models
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
-        
+
         [Required]
-        [Display(Name = "Imie")]
+        [Display(Name = "Login")]
+        public string Username { get; set; }
+
+        [Required]
+        [Display(Name = "Imię")]
         public string FirstName { get; set; }
         
         [Required]

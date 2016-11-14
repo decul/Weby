@@ -74,9 +74,21 @@ namespace Weby.Controllers
                 return View(model);
             }
 
+            // Let user use userName or email for loging in
+            string userName = model.Login;
+            if (model.Login.Contains("@"))
+            {
+                using (var context = new ApplicationDbContext())
+                {
+                    var user = context.Users.FirstOrDefault(u => u.Email == model.Login);
+                    if (user != null)
+                        userName = user.UserName;
+                }
+            }
+
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(userName, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -152,7 +164,7 @@ namespace Weby.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.FirstName, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Username, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
