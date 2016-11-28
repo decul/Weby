@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Weby.Models.Reservation>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<div class="span5 col-md-5" id="sandbox-container"></div>
+<script type="text/javascript">
+    //$(function () {
+    //    $('#datetimepicker1 div').datepicker();
+    //});
+    $(document).ready(function () {
+        $("#sandbox-container").datetimepicker();
+    });
+</script>
+

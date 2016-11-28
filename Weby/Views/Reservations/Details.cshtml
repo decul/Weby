@@ -1,0 +1,42 @@
+﻿@model Weby.Models.Reservation
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Reservation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SubmissionDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubmissionDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OnBackupList)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OnBackupList)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Confirmed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Confirmed)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

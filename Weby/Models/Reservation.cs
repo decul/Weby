@@ -17,7 +17,7 @@ namespace Weby.Models
 
 
 
-        public User User { get; set; }
+        public ApplicationUser User { get; set; }
 
         public ICollection<Day> Days { get; set; }
     }

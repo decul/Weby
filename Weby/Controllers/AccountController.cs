@@ -164,19 +164,11 @@ namespace Weby.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Username, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Username, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-
-                    // Save additional info to DB
-                    var db = new WebyDb();
-                    var _user = db.Users.Find(user.Id);
-                    _user.FirstName = model.FirstName;
-                    _user.LastName = model.LastName;
-                    db.Entry(_user).State = EntityState.Modified;
-                    db.SaveChanges();
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link

@@ -1,14 +1,13 @@
 ﻿@model IEnumerable<Weby.Models.UserViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Użytkownicy";
 }
 
-<h2>Index</h2>
+<h2>Użytkownicy</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@*@Html.AntiForgeryToken()*@
+
 <table class="table">
     <tr>
         <th>
@@ -23,34 +22,45 @@
         <th>
             @Html.DisplayNameFor(model => model.IsAdmin)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsSuperAdmin)
-        </th>
-        <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var user in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
+            @Html.DisplayFor(modelItem => user.FirstName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.LastName)
+            @Html.DisplayFor(modelItem => user.LastName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IsActivated)
+            @if (user.IsActivated)
+            {
+                @Html.ActionLink("Deaktywuj", "Deactivate", new { id = user.Id }, new { @class = "btn btn-success", @role = "button" })
+            }
+            else
+            {
+                @Html.ActionLink("Aktywuj", "Activate", new { id = user.Id }, new { @class = "btn btn-default", @role = "button" })
+            }
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IsAdmin)
+            @if (user.IsActivated)
+            {
+                if (user.IsAdmin)
+                {
+                    @Html.ActionLink("Usuń Admina", "RemoveAdmin", new { id = user.Id }, new { @class = "btn btn-warning", @role = "button" })
+                }
+                else
+                {
+                    @Html.ActionLink("Nadaj Admina", "MakeAdmin", new { id = user.Id }, new { @class = "btn btn-default", @role = "button" })
+                }
+            }
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsSuperAdmin)
-        </td>
-        <td>
+
+        @*<td>
             @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
             @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
             @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
+        </td>*@
     </tr>
 }
 

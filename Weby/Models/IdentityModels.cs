@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
 
 namespace Weby.Models
 {
@@ -19,10 +20,21 @@ namespace Weby.Models
         }
 
 
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+
+        public ICollection<Reservation> Reservations { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<Reservation> Reservations { get; set; }
+
+        public DbSet<Day> Days { get; set; }
+
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

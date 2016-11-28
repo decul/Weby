@@ -13,7 +13,7 @@ namespace Weby.Controllers
             return View();
         }
         
-        [Authorize(Roles = "Activated")]
+        [Authorize(Roles = Role.Active)]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
