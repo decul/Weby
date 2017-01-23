@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Weby.Models.Reservation>
+
+@{
+    ViewBag.Title = "Twoje rezerwacje";
+}
+
+<h2>Twoje rezerwacje</h2>
+
+<p>
+    @Html.ActionLink("Stwórz nową", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SubmissionDate)
+        </th>
+        <th>
+            Początek
+        </th>
+        <th>
+            Koniec
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var res in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => res.SubmissionDate)
+        </td>
+
+        <th>
+            @res.Days.First().Date.ToLongDateString();
+        </th>
+
+        <th>
+            @res.Days.Last().Date.ToLongDateString()
+        </th>
+
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=res.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=res.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=res.Id })
+        </td>
+    </tr>
+}
+
+</table>

@@ -7,9 +7,12 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Weby.Models;
+using Weby.Models.ViewModels;
+using Microsoft.AspNet.Identity;
 
 namespace Weby.Controllers
 {
+    [Authorize(Roles = Role.Active)]
     public class ReservationsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -17,7 +20,19 @@ namespace Weby.Controllers
         // GET: Reservations
         public ActionResult Index()
         {
-            return View(db.Reservations.ToList());
+            string userId = User.Identity.GetUserId();
+            ViewBag.BusyDays = Day.BusyDaysStringList(userId);
+            ViewBag.UsersDays = Day.UsersDaysStringList(userId);
+            var usersRes = db.Reservations
+                .Where(r => r.User.Id == userId)
+                .OrderBy(r => r.Days.FirstOrDefault().Date).ToList();
+            return View(usersRes);
+        }
+
+        public ActionResult UsersReservations()
+        {
+            var userId = User.Identity.GetUserId();
+            return View(db.Reservations.Where(r => r.User.Id == userId).ToList());
         }
 
         // GET: Reservations/Details/5
@@ -38,6 +53,8 @@ namespace Weby.Controllers
         // GET: Reservations/Create
         public ActionResult Create()
         {
+            ViewBag.BusyDays = Day.BusyDaysStringList(User.Identity.GetUserId());
+            ViewBag.UsersDays = Day.UsersDaysStringList(User.Identity.GetUserId());
             return View();
         }
 
@@ -46,16 +63,45 @@ namespace Weby.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,SubmissionDate,OnBackupList,Confirmed")] Reservation reservation)
+        public ActionResult Create([Bind(Include = "OnBackupList,Confirmed,Dates")] NewReservationViewModels newReservation)
         {
             if (ModelState.IsValid)
             {
+                var reservation = new Reservation()
+                {
+                    Confirmed = newReservation.Confirmed,
+                    OnBackupList = newReservation.OnBackupList,
+                    SubmissionDate = DateTime.Now,
+                    User = db.Users.Find(User.Identity.GetUserId()),
+                    Days = new List<Day>()
+                };
+
+                string[] dates = newReservation.Dates.Split(',');
+                var startDate = DateTime.ParseExact(dates.First(), "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                var endDate = DateTime.ParseExact(dates.Last(), "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                if (endDate < startDate)
+                {
+                    var temp = startDate;
+                    startDate = endDate;
+                    endDate = temp;
+                }
+                for (var date = startDate; date <= endDate; date = date.AddDays(1))
+                {
+                    Day day = db.Days.SingleOrDefault(d => d.Date == date);
+                    if (day != null)
+                        reservation.Days.Add(day);
+                    else
+                        reservation.Days.Add(new Day() { Date = date });
+                }
+
                 db.Reservations.Add(reservation);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(reservation);
+            ViewBag.BusyDays = Day.BusyDaysStringList(User.Identity.GetUserId());
+            ViewBag.UsersDays = Day.UsersDaysStringList(User.Identity.GetUserId());
+            return View(newReservation);
         }
 
         // GET: Reservations/Edit/5
@@ -65,12 +111,15 @@ namespace Weby.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            string userId = User.Identity.GetUserId();
+            ViewBag.BusyDays = Day.BusyDaysStringList(userId);
+            ViewBag.UsersDays = Day.UsersDaysStringList(userId, id.Value);
             Reservation reservation = db.Reservations.Find(id);
             if (reservation == null)
             {
                 return HttpNotFound();
             }
-            return View(reservation);
+            return View("Create", reservation);
         }
 
         // POST: Reservations/Edit/5

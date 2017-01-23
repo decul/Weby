@@ -11,18 +11,19 @@ namespace Weby
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include("~/Scripts/jquery-ui-{version}.js"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
-              "~/Content/themes/base/jquery.ui.core.css",
-              "~/Content/themes/base/jquery.ui.resizable.css",
-              "~/Content/themes/base/jquery.ui.selectable.css",
-              "~/Content/themes/base/jquery.ui.accordion.css",
-              "~/Content/themes/base/jquery.ui.autocomplete.css",
-              "~/Content/themes/base/jquery.ui.button.css",
-              "~/Content/themes/base/jquery.ui.dialog.css",
-              "~/Content/themes/base/jquery.ui.slider.css",
-              "~/Content/themes/base/jquery.ui.tabs.css",
-              "~/Content/themes/base/jquery.ui.datepicker.css",
-              "~/Content/themes/base/jquery.ui.progressbar.css",
-              "~/Content/themes/base/jquery.ui.theme.css"));
+              "~/Content/themes/base/core.css",
+              "~/Content/themes/base/jquery-ui",
+              "~/Content/themes/base/resizable.css",
+              "~/Content/themes/base/selectable.css",
+              "~/Content/themes/base/accordion.css",
+              "~/Content/themes/base/autocomplete.css",
+              "~/Content/themes/base/button.css",
+              "~/Content/themes/base/dialog.css",
+              "~/Content/themes/base/slider.css",
+              "~/Content/themes/base/tabs.css",
+              "~/Content/themes/base/datepicker.css",
+              "~/Content/themes/base/progressbar.css",
+              "~/Content/themes/base/theme.css"));
 
 
 
@@ -44,7 +45,9 @@ namespace Weby
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/calendar.css",
+                      "~/Content/Style.css"));
         }
     }
 }

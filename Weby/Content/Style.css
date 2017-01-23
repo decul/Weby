@@ -1,0 +1,21 @@
+﻿.ramka {
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+
+.error {
+    color: red;
+}
+
+
+.msg {
+    background: white;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    padding: 10px;
+    /*width: 426px;*/
+    margin: 10px 0;
+}

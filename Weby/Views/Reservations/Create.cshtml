@@ -1,59 +1,51 @@
-﻿@model Weby.Models.Reservation
+﻿@model Weby.Models.ViewModels.NewReservationViewModels
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Edytuj rezerwację";
 }
 
-<h2>Create</h2>
+<script type="text/javascript">
+    busyDays = @Html.Raw(Json.Encode(ViewBag.BusyDays));
+    usersDays = @Html.Raw(Json.Encode(ViewBag.UsersDays));
+</script>
 
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Reservation</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.SubmissionDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SubmissionDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SubmissionDate, "", new { @class = "text-danger" })
-            </div>
+
+    <br/>
+    <div>
+        <div class="col-sm-7 col-md-6 col-lg-5 col-lg-offset-1">
+            <div id="calendar" picker="true"></div>
+            @Html.HiddenFor(model => model.Dates)
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.OnBackupList, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.OnBackupList)
-                    @Html.ValidationMessageFor(model => model.OnBackupList, "", new { @class = "text-danger" })
+        <div class="col-sm-5 col-lg-4">
+            <div class="form-horizontal">
+
+                <div class="msg">
+                    Wybierz na kalendarzu pierwszy i ostatni dzień okresu, który chcesz zarezerwować i potwierdź przyciskiem "Rezerwuj"
                 </div>
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Confirmed, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Confirmed)
-                    @Html.ValidationMessageFor(model => model.Confirmed, "", new { @class = "text-danger" })
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                
+
+
+                <div id="busy-msg" class="error msg" style="display: none">
+                    Nie możesz wybrać tych dni, ponieważ w tym czasie została już złożona inna rezerwacja
                 </div>
-            </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <div class="form-group" style="margin: auto;">
+                        <input type="submit" value="Zapisz" class="btn btn-success" />
+                        @Html.ActionLink("Anuluj", "Index", new { }, new { @class = "btn btn-default", @role = "button" })
+                </div>
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

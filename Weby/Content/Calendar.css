@@ -1,0 +1,145 @@
+﻿.datepicker-inline .table-condensed {
+    background: white;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    font-family: cursive;
+    border-collapse: initial;
+}
+
+.datepicker-inline {
+    width: auto;
+    font-size: 22px;
+}
+.datepicker-inline td, 
+.datepicker-inline th {
+    width: 60px;
+    height: 60px;
+}
+
+.datepicker .prev, 
+.datepicker .next, 
+.datepicker .datepicker-switch {
+    background: brown;                                      /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#c73333, #761e1e);  /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#c73333, #761e1e);       /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#c73333, #761e1e);     /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#c73333, #761e1e);          /* Standard syntax */
+    color: white;
+    border-radius: 0px;
+}
+.datepicker .prev:hover, 
+.datepicker .next:hover, 
+.datepicker .datepicker-switch:hover {
+    background: #a32929;
+}
+.datepicker-inline .prev {
+    border-top-left-radius: 4px;
+}
+.datepicker-inline .next {
+    border-top-right-radius: 4px;
+}
+
+.datepicker table tr td.today {
+    background: whitesmoke;
+}
+.datepicker table tr td.today:hover:hover {
+    background: #eee;
+}
+
+.datepicker .sunday,
+.datepicker .today.sunday {
+    color: #d61616;
+}
+
+.datepicker .saturday,
+.datepicker .today.saturday {
+    color: darkgreen;
+}
+
+
+.datepicker .busy-dark {
+    color: white;
+    border: 1px #801414 solid;
+    background: #900707;                                    /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#d12929, #7b1818);  /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#d12929, #7b1818);       /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#d12929, #7b1818);     /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#d12929, #7b1818);          /* Standard syntax */
+}
+.datepicker .busy-dark.day:hover {
+    background: #840606;                                 
+}
+
+.datepicker .booked-dark {
+    color: white;
+    border: 1px green solid;
+    background: #186f18;                                    /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#26b326, #066f06);  /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#26b326, #066f06);       /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#26b326, #066f06);     /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#26b326, #066f06);          /* Standard syntax */
+}
+.datepicker .booked-dark.day:hover {
+    background: green;                                 
+}
+
+
+.datepicker .busy.day {
+    border: 1px #e27373 solid;
+    background: #e67070;                                    /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#ffadad, #e67070);  /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#ffadad, #e67070);       /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#ffadad, #e67070);     /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#ffadad, #e67070);          /* Standard syntax */
+}
+.datepicker .busy.day:hover {
+    background: #f08989;                                 
+}
+.datepicker .busy.saturday {
+    color: #377b37;
+}
+.datepicker .busy.sunday {
+    color: #c23838;
+}
+
+
+.datepicker .booked.day {
+    border: 1px #49bf49 solid;
+    background: #47cd47;                                    /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#99ff99, #47cd47);  /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#99ff99, #47cd47);       /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#99ff99, #47cd47);     /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#99ff99, #47cd47);          /* Standard syntax */
+}
+.datepicker .booked.day:hover {
+    background: #66db66;                                 
+}
+.datepicker .booked.saturday {
+    color: #299429;
+}
+.datepicker .booked.sunday {
+    color: #c23d3d;
+}
+
+
+.datepicker .new.day,
+.datepicker .old.day {
+    color: rgba(0, 0, 0, 0.3);
+}
+
+
+.datepicker .active.day {
+    color: #333; 
+    border: 1px solid #69acd8;
+    background-image: linear-gradient(to bottom, #a3e0ff, #4ca4e2);
+    background: #4ca4e2;                                    /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#a3e0ff, #4ca4e2);  /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#a3e0ff, #4ca4e2);       /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#a3e0ff, #4ca4e2);     /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#a3e0ff, #4ca4e2);          /* Standard syntax */
+}
+.datepicker .active.day:hover.active {
+    color: #333; 
+    border: 1px solid #69acd8;
+    background: #5bbae0;
+}

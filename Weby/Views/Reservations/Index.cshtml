@@ -4,19 +4,56 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-
-<div class="span5 col-md-5" id="sandbox-container"></div>
 <script type="text/javascript">
-    //$(function () {
-    //    $('#datetimepicker1 div').datepicker();
-    //});
-    $(document).ready(function () {
-        $("#sandbox-container").datetimepicker();
-    });
+    busyDays = @Html.Raw(Json.Encode(ViewBag.BusyDays));
+    usersDays = @Html.Raw(Json.Encode(ViewBag.UsersDays));
 </script>
+
+<br/>
+
+<div>
+    <div class="col-sm-7 col-md-6 col-lg-5 col-lg-offset-1">
+        <div id="calendar" picker="false"></div>
+    </div>
+
+    <div class="col-sm-5 col-lg-4">
+        
+        <div class="form-horizontal">
+
+            <h3>Twoje rezerwacje</h3>
+
+            @foreach (var res in Model)
+            {
+                <div class="ramka">
+                    <div class="form-group">
+                        <label class="col-xs-3">Początek</label>
+                        <div class="col-md-9">
+                            @res.Days.OrderBy(d => d.Date).First().Date.ToLongDateString()
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-3">Koniec</label>
+                        <div class="col-md-9">
+                            @res.Days.OrderBy(d => d.Date).Last().Date.ToLongDateString()
+                        </div>
+                    </div>
+
+                    @*@Html.ActionLink("Edytuj", "Edit", new { id = res.Id }, new { @class = "btn btn-default", @role = "button" })*@
+                    @Html.ActionLink("Usuń", "Delete", new { id = res.Id }, new { @class = "btn btn-danger", @role = "button" })
+                </div>
+            }
+            @if (Model.Count() == 0)
+            {
+                <div class="msg">
+                    <p>Nie masz jeszcze żadnych rezerwacji, możesz je stworzyć używając przycisku poniżej.</p>
+                    W kalendarzu po lewej stronie możesz przeglądać które dni są już zajęte.
+                </div>
+            }
+
+            @Html.ActionLink("Stwórz nową rezerwację", "Create", new { }, new { @class = "btn btn-success", @role = "button" })
+        </div>
+    </div>
+</div>
+
 

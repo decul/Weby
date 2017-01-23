@@ -25,13 +25,13 @@ namespace Weby.Models
         public string LastName { get; set; }
 
 
-        public ICollection<Reservation> Reservations { get; set; }
+        public virtual ICollection<Reservation> Reservations { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Reservation> Reservations { get; set; }
-
+        
         public DbSet<Day> Days { get; set; }
 
 

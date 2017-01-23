@@ -5,6 +5,7 @@ using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Threading;
 using System.Web;
@@ -19,6 +20,8 @@ namespace Weby.Controllers
     {
         ApplicationDbContext context = new ApplicationDbContext();
         UserManager<ApplicationUser> userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: User
         public ActionResult Index()
@@ -77,6 +80,6 @@ namespace Weby.Controllers
                 userManager.RemoveFromRole(model.Id, Role.Admin);
             return RedirectToAction("Index");
         }
-        
+
     }
 }
