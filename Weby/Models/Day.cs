@@ -26,14 +26,11 @@ namespace Weby.Models
             return list;
         }
 
-        static public List<string> UsersDaysStringList(string userId, int reservationId = -1)
+        static public List<string> UsersDaysStringList(string userId)
         {
             var db = new ApplicationDbContext();
             List<Day> days;
-            if (reservationId > -1)
-                days = db.Days.Where(d => d.Reservations.Where(r => r.User.Id == userId).Any()).ToList();
-            else
-                days = db.Days.Where(d => d.Reservations.Where(r => r.User.Id == userId && r.Id != reservationId).Any()).ToList();
+            days = db.Days.Where(d => d.Reservations.Where(r => r.User.Id == userId).Any()).ToList();
             var list = new List<string>();
             foreach (var day in days)
                 list.Add(day.Date.Day.ToString("D2") + "/" + day.Date.Month.ToString("D2") + "/" + day.Date.Year);

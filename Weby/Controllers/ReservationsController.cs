@@ -113,7 +113,7 @@ namespace Weby.Controllers
             }
             string userId = User.Identity.GetUserId();
             ViewBag.BusyDays = Day.BusyDaysStringList(userId);
-            ViewBag.UsersDays = Day.UsersDaysStringList(userId, id.Value);
+            ViewBag.UsersDays = Day.UsersDaysStringList(userId);
             Reservation reservation = db.Reservations.Find(id);
             if (reservation == null)
             {
